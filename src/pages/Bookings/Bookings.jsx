@@ -15,6 +15,22 @@ const Bookings = () => {
             })
     }, [url])
 
+    const handleDelete = (id) => {
+        const proceed = confirm("Are You Sure? You Really Want to Delete It?");
+        if (proceed) {
+            fetch(`http://localhost:5000/bookings/${id}`, { method: "DELETE" })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.deletedCount > 0) {
+                        alert('Successfully Deleted!');
+                        const remainingBookings = bookings.filter(booking => booking._id !== id);
+                        setBookings(remainingBookings);
+                    }
+                })
+        }
+    }
+
 
     return (
         <div className="mx-auto">
@@ -23,10 +39,13 @@ const Bookings = () => {
                 <table className="table text-xs md:text-sm">
                     <thead className=" text-sm md:text-base">
                         <tr>
-                            {/* <th>#</th>
+                            { /* 
+                            <th>#</th>
+                            <th>#</th>
                             <th>Image, Name & Category</th>
                             <th>Price</th>
-                            <th className="pl-5 md:pl-[28px]">View Details</th> */}
+                            <th className="pl-5 md:pl-[28px]">View Details</th>
+                             */}
                         </tr>
                     </thead>
                     {
@@ -34,6 +53,7 @@ const Bookings = () => {
                             key={booking?._id}
                             booking={booking}
                             serial={index + 1}
+                            handleDelete={handleDelete}
                         ></Booking>)
                     }
                 </table>
