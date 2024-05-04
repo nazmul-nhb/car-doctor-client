@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-const Booking = ({ booking, serial, handleDelete }) => {
+const Booking = ({ booking, serial, handleDelete, handleConfirm }) => {
 
-    const { _id, name, img, title, price } = booking;
+    const { _id, name, img, title, price, status } = booking;
 
     return (
         <tbody>
@@ -28,7 +28,9 @@ const Booking = ({ booking, serial, handleDelete }) => {
                 </td>
                 <td>${price}</td>
                 <th className="text-[10px] md:text-base">
-
+                    {status === "confirm" ? <span className='text-green-800'>Confirmed!</span>
+                        : <button onClick={() => handleConfirm(_id)} className='btn btn-ghost btn-xs'>Please, Confirm</button>
+                    }
                 </th>
             </tr>
         </tbody>
@@ -39,6 +41,7 @@ Booking.propTypes = {
     booking: PropTypes.object,
     serial: PropTypes.number,
     handleDelete: PropTypes.func,
+    handleConfirm: PropTypes.func,
 }
 
 export default Booking;

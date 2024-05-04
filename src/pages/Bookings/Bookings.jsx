@@ -31,6 +31,25 @@ const Bookings = () => {
         }
     }
 
+    const handleConfirm = (id) => {
+        fetch(`http://localhost:5000/bookings/${id}`, {
+            method: "PATCH",
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ status: "confirm" })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.modifiedCount > 0) {
+                    alert('Confirmed!');
+                    const remainingBookings = bookings.filter(booking => booking._id !== id);
+                    const updatedBooking = bookings.find(booking => booking._id !== id);
+                    updatedBooking.status = 'confirm';
+                    const newBookings = [updatedBooking, ...remainingBookings];
+                    setBookings(newBookings);
+                }
+            })
+    }
 
     return (
         <div className="mx-auto">
@@ -54,6 +73,7 @@ const Bookings = () => {
                             booking={booking}
                             serial={index + 1}
                             handleDelete={handleDelete}
+                            handleConfirm={handleConfirm}
                         ></Booking>)
                     }
                 </table>
