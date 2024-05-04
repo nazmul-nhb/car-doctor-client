@@ -43,7 +43,7 @@ const Bookings = () => {
                 if (data.modifiedCount > 0) {
                     alert('Confirmed!');
                     const remainingBookings = bookings.filter(booking => booking._id !== id);
-                    const updatedBooking = bookings.find(booking => booking._id !== id);
+                    const updatedBooking = bookings.find(booking => booking._id === id);
                     updatedBooking.status = 'confirm';
                     const newBookings = [updatedBooking, ...remainingBookings];
                     setBookings(newBookings);
