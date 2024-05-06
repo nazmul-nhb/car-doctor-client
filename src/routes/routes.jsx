@@ -11,23 +11,23 @@ export const router = createBrowserRouter([
     {
         path: "/",
         element: <Root></Root>,
-        children:[
+        children: [
             {
-                path:'/',
+                path: '/',
                 element: <Home></Home>
             },
             {
-                path:'/login',
+                path: '/login',
                 element: <Login></Login>
             },
             {
-                path:'/signup',
+                path: '/signup',
                 element: <SignUp></SignUp>
             },
             {
-                path:'/checkout/:id',
+                path: '/checkout/:id',
                 element: <PrivateRoute><CheckOut></CheckOut></PrivateRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+                loader: ({ params }) => fetch(`https://car-doctor-server-zeta-gules.vercel.app/services/${params.id}`)
             },
             {
                 path: '/bookings',

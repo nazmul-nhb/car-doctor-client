@@ -12,7 +12,7 @@ const CheckOut = () => {
     const handleCheckOut = (data) => {
         const serviceData = { ...data, service_id, title, img, item_id: _id }
         console.log(serviceData);
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://car-doctor-server-zeta-gules.vercel.app/bookings', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'
